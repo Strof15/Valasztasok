@@ -1,0 +1,10 @@
+﻿@page
+@model Valasztasok.Pages.AdatFeltoltesModel
+@{
+}
+<h1>Adatok Feltöltése szöveged fájlból</h1>
+<form method="post" enctype="multipart/form-data">
+    <label asp-for="UploadFile"></label>
+    <input type="file" asp-for="UploadFile" />
+    <input type="submit">Submit</input>
+</form>
