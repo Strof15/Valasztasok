@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ValasztasDbContext>(
-    options => options.UseSqlite(connectionString: "Data Source = Valasztas.db") );
+    options => options.UseSqlite(connectionString: "Data Source=Valasztas.db") );
 
 var app = builder.Build();
 
