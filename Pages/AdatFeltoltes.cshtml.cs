@@ -22,9 +22,9 @@ namespace Valasztasok.Pages
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            var UploadFilePath = Path.Combine(_env.ContentRootPath,"Uploads",UploadFile.FileName);
+            var UploadFilePath = Path.Combine(_env.ContentRootPath, "Uploads", UploadFile.FileName);
 
-            using(var stream = new FileStream(UploadFilePath, FileMode.Create))
+            using (var stream = new FileStream(UploadFilePath, FileMode.Create))
             {
                 await UploadFile.CopyToAsync(stream);
             }
@@ -36,14 +36,15 @@ namespace Valasztasok.Pages
                 var elemek = sor.Split(' ');
                 Jelolt ujJelolt = new();
                 Part ujPart;
-                if (!_context.Partok.Select(x=>x.RovidNev == elemek[4]).First())
+                if (!_context.Partok.Select(x => x.RovidNev == elemek[4]).First())
                 {
-                ujPart = new();
-
+                    ujPart = new();
+                    ujPart.RovidNev = elemek[4];
+                    _context.Partok.Add(ujPart);
                 }
                 else
                 {
-                    ujPart = _context.Partok.Select(x => x.RovidNev == elemek[4]).First();
+                    ujPart = _context.Partok.Where(x => x.RovidNev == elemek[4]).First();
                 }
 
                 ujJelolt.KeruletID = int.Parse(elemek[0]);
