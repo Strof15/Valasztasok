@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿// Pages/Szavazatok.cshtml.cs
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Valasztasok.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Valasztasok.Pages
 {
     public class SzavazatokModel : PageModel
     {
-        private readonly Valasztasok.Models.ValasztasDbContext _context;
+        private readonly ValasztasDbContext _context;
 
-        public SzavazatokModel(Valasztasok.Models.ValasztasDbContext context)
+        public SzavazatokModel(ValasztasDbContext context)
         {
             _context = context;
         }
 
-        public IList<Jelolt> Jelolt { get;set; } = default!;
+        public IList<Jelolt> Jelolt { get; set; }
 
         public async Task OnGetAsync()
         {
-            Jelolt = await _context.Jeloltek.ToListAsync();
+            Jelolt = await _context.Jeloltek.Include(j => j.Part).ToListAsync(); // Include Part
         }
     }
 }
